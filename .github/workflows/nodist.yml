@@ -1,0 +1,32 @@
+name: Test Action No Dist
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  test-action:
+    name: GitHub Actions Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Test Action No Dist
+        id: test-action
+        uses: ellenfieldn/container-toolkit-action-nodist@v0.0.2
+        with:
+          milliseconds: 1234
+
+      - name: Print Output
+        id: output
+        run: echo "${{ steps.test-action.outputs.time }}"
